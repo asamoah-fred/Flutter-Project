@@ -59,7 +59,6 @@ class _LoginPageState extends State<LoginPage> {
                 onChanged: (value) {
                   username = value;
                 },
-                obscureText: false,
                 decoration: InputDecoration(
                   hintText: 'Email',
                 ),
@@ -70,21 +69,21 @@ class _LoginPageState extends State<LoginPage> {
                   return null;
                 },
               ),
-              TextForm(
+              TextFormField(
                 onChanged: (value) {
                   password = value;
                 },
-                textFieldForm: TextFormData(
+                decoration: InputDecoration(
                   hintText: 'Password',
-                  obscure: true,
-                  Validator: (String? value) {
-                    if (value == null || value.isEmpty) {
-                      return "Field is required";
-                    }
-
-                    return null;
-                  },
                 ),
+                obscureText: true,
+                validator: (String? value) {
+                  if (value == null || value.isEmpty) {
+                    return "Field is required";
+                  }
+
+                  return null;
+                },
               ),
               SizedBox(
                 height: 15,
@@ -99,19 +98,15 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(
                 height: 25,
               ),
-              GestureDetector(
-                onTap: () async {
+              TextButton(
+                onPressed: () async {
                   if (_formkey.currentState != null &&
                       _formkey.currentState!.validate()) {
                     final http.Response response =
                         await _login(username: username!, password: password!);
                   }
                 },
-                child: Button(
-                  button: ButtonData(
-                    text: 'LOGIN',
-                  ),
-                ),
+                child: Text('Login'),
               ),
               SizedBox(
                 height: 10,
