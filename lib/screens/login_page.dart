@@ -45,17 +45,25 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: Colors.white,
       ),
-      body: SingleChildScrollView(
-        child: Form(
-          key: _formkey,
-          child: Column(
-            children: <Widget>[
-              SizedBox(
-                height: 35,
+      body: Form(
+        key: _formkey,
+        child: Column(
+          children: <Widget>[
+            Text(
+              'LOGIN',
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.w500,
               ),
-              TextFormField(
+            ),
+            SizedBox(
+              height: 100,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: TextFormField(
                 onChanged: (value) {
                   username = value;
                 },
@@ -69,7 +77,13 @@ class _LoginPageState extends State<LoginPage> {
                   return null;
                 },
               ),
-              TextFormField(
+            ),
+            SizedBox(
+              height: 8,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: TextFormField(
                 onChanged: (value) {
                   password = value;
                 },
@@ -85,35 +99,44 @@ class _LoginPageState extends State<LoginPage> {
                   return null;
                 },
               ),
-              SizedBox(
-                height: 15,
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Text(
+              'Forget your password?',
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: 15,
               ),
-              Text(
-                'Forget your password?',
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 15,
+            ),
+            SizedBox(
+              height: 60,
+            ),
+            TextButton(
+              onPressed: () async {
+                if (_formkey.currentState != null &&
+                    _formkey.currentState!.validate()) {
+                  final http.Response response =
+                      await _login(username: username!, password: password!);
+                }
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.blue,
+                ),
+                child: Text(
+                  'Login',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.black,
+                  ),
                 ),
               ),
-              SizedBox(
-                height: 25,
-              ),
-              TextButton(
-                onPressed: () async {
-                  if (_formkey.currentState != null &&
-                      _formkey.currentState!.validate()) {
-                    final http.Response response =
-                        await _login(username: username!, password: password!);
-                  }
-                },
-                child: Text('Login'),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              TextFormField(),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
