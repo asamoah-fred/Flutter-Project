@@ -3,8 +3,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_project/ui/login_page.dart';
 import 'package:flutter_project/ui/mobile_method.dart';
+import 'package:flutter_project/widgets/momo_metd_bottomsheet.dart';
 import 'package:flutter_project/widgets/pay_methods.dart';
 
 class PaymentMethod extends StatefulWidget {
@@ -202,6 +202,12 @@ class _PaymentMethodState extends State<PaymentMethod> {
 
   void _show(BuildContext ctx) {
     showModalBottomSheet(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(15),
+          topRight: Radius.circular(15),
+        ),
+      ),
       elevation: 0,
       backgroundColor: Colors.white,
       context: ctx,
@@ -245,146 +251,22 @@ class _PaymentMethodState extends State<PaymentMethod> {
               height: 10,
             ),
             Divider(),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                color: Color.fromARGB(255, 248, 240, 240),
-              ),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Radio(
-                        groupValue: true,
-                        value: false,
-                        onChanged: (value) {},
-                        activeColor: Color.fromARGB(255, 138, 147, 195),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Orange Money',
-                            style: TextStyle(
-                              color: Color.fromARGB(255, 6, 28, 151),
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            '6 96 92 09 08',
-                            style: TextStyle(
-                              color: Color.fromARGB(255, 138, 147, 195),
-                              fontSize: 12,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
             SizedBox(
               height: 15,
             ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                color: Color.fromARGB(255, 248, 240, 240),
+            ListView.separated(
+              separatorBuilder: (_, index) => SizedBox(
+                height: 15,
               ),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Radio(
-                        groupValue: true,
-                        value: false,
-                        onChanged: (value) {},
-                        activeColor: Color.fromARGB(255, 138, 147, 195),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(
-                            'MTN Mobile Money',
-                            style: TextStyle(
-                              color: Color.fromARGB(255, 6, 28, 151),
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            '6 78 89 78 90',
-                            style: TextStyle(
-                              color: Color.fromARGB(255, 138, 147, 195),
-                              fontSize: 12,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                color: Color.fromARGB(255, 248, 240, 240),
-              ),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Radio(
-                        groupValue: true,
-                        value: false,
-                        onChanged: (value) {},
-                        activeColor: Color.fromARGB(255, 138, 147, 195),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Orange Money',
-                            style: TextStyle(
-                              color: Color.fromARGB(255, 6, 28, 151),
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            '6 90 95 04 90',
-                            style: TextStyle(
-                              color: Color.fromARGB(255, 138, 147, 195),
-                              fontSize: 12,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+              itemCount: momoMetd.length,
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemBuilder: ((context, index) {
+                final item = momoMetd[index];
+                return MobileMoneyMethod(
+                  momoMetd: item,
+                );
+              }),
             ),
             SizedBox(
               height: 15,
@@ -444,9 +326,9 @@ class _PaymentMethodState extends State<PaymentMethod> {
                 ),
               ),
             ),
-            SizedBox(height: 15),
+            Spacer(),
             Container(
-              padding: EdgeInsets.symmetric(vertical: 25),
+              padding: EdgeInsets.symmetric(vertical: 20),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
                   color: Color.fromARGB(255, 13, 44, 123)),
